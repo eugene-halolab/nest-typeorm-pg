@@ -40,8 +40,11 @@ export class AuthService {
   private async validateUser(userDto: CreateUserDto) {
     const user = await this.userService.getUserByEmail(userDto.email);
     const passEquals = await bcrypt.compare(userDto.password, user.password);
-    if (user && passEquals) {
-      return user;
+    if (user) {
+      const passEquals = await bcrypt.compare(userDto.password, user.password);
+      if (passEquals) {
+        return user;
+      }
     }
     throw new UnauthorizedException({ message: 'Email or password entered incorrectly' });
   }
