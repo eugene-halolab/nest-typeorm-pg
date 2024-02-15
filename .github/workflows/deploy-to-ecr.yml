@@ -14,8 +14,11 @@ jobs:
       - name: Echo
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: echo "AWS_REGION - $AWS_REGION ||| AWS_ACCESS_KEY_ID - ${{ vars.AWS_REGION }}"
-          
+        run: |
+          echo "AWS_REGION secret : $AWS_REGION"
+          echo "AWS_REGION env : ${{env.AWS_REGION}}"
+          echo "AWS_REGION variable : ${{vars.AWS_REGION}}"
+    
       - name: Configure AWS credentials
         id: aws-credentials
         uses: aws-actions/configure-aws-credentials@v1
